@@ -29,6 +29,9 @@ public class EnemyManager : MonoBehaviour
             gridOcclusion = FindAnyObjectByType<GridOcclusionMap>();
         }
     }
+
+    private bool registeredToCellTracker;
+    private Vector2Int registeredCell;
     
     protected Transform player;
     protected bool canSeePlayer = false;
@@ -49,12 +52,33 @@ public class EnemyManager : MonoBehaviour
     
     protected virtual void Update()
     {
+        TryRegisterToCellTracker();
         DetectPlayer();
         
         if (canSeePlayer)
         {
             KillPlayer();
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (!registeredToCellTracker) return;
+        if (EnemyCellTracker.I == null) return;
+        EnemyCellTracker.I.Unregister(registeredCell);
+        registeredToCellTracker = false;
+    }
+
+    private void TryRegisterToCellTracker()
+    {
+        if (registeredToCellTracker) return;
+
+        var tracker = EnemyCellTracker.I;
+        if (tracker == null) return;
+        if (!tracker.TryWorldToCell(transform.position, out registeredCell)) return;
+
+        tracker.Register(registeredCell);
+        registeredToCellTracker = true;
     }
     
     // プレイヤーを検知
