@@ -36,4 +36,9 @@ public class GameManager_T : MonoBehaviour
         }
         else return 3;
     }
+
+    public int[] GetPlayerPos()
+    {
+        return pm.GetPlayerPos();
+    }
 }

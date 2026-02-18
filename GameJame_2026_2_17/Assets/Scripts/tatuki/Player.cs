@@ -15,6 +15,17 @@ public class Player : MonoBehaviour
     }
 
     private int px, py;
+    public int PX
+    {
+        get { return px; }
+        set { px = value; }
+    }
+
+    public int PY
+    {
+        get { return py; }
+        set { py = value; }
+    }
     private PlayerManager pm;
     private PlayerDirection myDir;
     private Vector3[] addPos =
