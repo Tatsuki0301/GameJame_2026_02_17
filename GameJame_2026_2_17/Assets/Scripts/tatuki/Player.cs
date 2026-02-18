@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
+using System.ComponentModel;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +15,17 @@ public class Player : MonoBehaviour
     }
 
     private int px, py;
+    public int PX
+    {
+        get { return px; }
+        set { px = value; }
+    }
+
+    public int PY
+    {
+        get { return py; }
+        set { py = value; }
+    }
     private PlayerManager pm;
     private PlayerDirection myDir;
     private Vector3[] addPos =
@@ -74,27 +86,16 @@ public class Player : MonoBehaviour
 
     private async UniTask WalkAction()
     {
+        int ax = System.Convert.ToInt32(addPos[(int)myDir].x);
+        int ay = System.Convert.ToInt32(addPos[(int)myDir].y);
+
+        Debug.Log($"{myDir}, {py - ay}, {px + ax}");
+
         //前に進めるかの判定&プレイヤーの2次元配列上の位置更新
-        switch (myDir)
-        {
-            case PlayerDirection.Up:
-                if (pm.GetMasValue(py - 1, px) == 3) return;
-                Debug.Log(pm.GetMasValue(py - 1, px) + $" {py}, {px}");
-                py--;
-                break;
-            case PlayerDirection.Right:
-                if (pm.GetMasValue(py, px + 1) == 3) return;
-                px++;
-                break;
-            case PlayerDirection.Down:
-                if (pm.GetMasValue(py + 1, px) == 3) return;
-                py++;
-                break;
-            case PlayerDirection.Left:
-                if (pm.GetMasValue(py, px - 1) == 3) return;
-                px--;
-                break;
-        }
+        if (pm.GetMasValue(py - ay, px + ax) == 3) return;
+
+        py -= ay;
+        px += ax;
 
         //移動先の座標
         Vector2 movePos = new Vector2(transform.position.x + addPos[(int)myDir].x, transform.position.y + addPos[(int)myDir].y);

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
+[DefaultExecutionOrder(-5)]
 public class GameManager_T : MonoBehaviour
 {
     private static GameManager_T gmInstance;
@@ -27,6 +29,16 @@ public class GameManager_T : MonoBehaviour
 
     public int GetMasValue(int y, int x)
     {
-        return mc.Map[y, x];
+        if (y < mc.Map.GetLength(0) && y >= 0
+            && x < mc.Map.GetLength(1) && x >= 0)
+        {
+            return mc.Map[y, x];
+        }
+        else return 3;
+    }
+
+    public int[] GetPlayerPos()
+    {
+        return pm.GetPlayerPos();
     }
 }

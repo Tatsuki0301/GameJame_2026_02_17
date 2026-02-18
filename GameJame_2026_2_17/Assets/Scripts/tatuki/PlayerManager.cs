@@ -29,4 +29,15 @@ public class PlayerManager : MonoBehaviour
     {
         return gm.GetMasValue(y, x);
     }
+
+    public int[] GetPlayerPos()
+    {
+        int[] playerPos =
+        {
+            player.PY,
+            player.PX,
+        };
+
+        return playerPos;
+    }
 }
