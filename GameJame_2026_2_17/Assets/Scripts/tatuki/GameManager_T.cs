@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
+[DefaultExecutionOrder(-5)]
 public class GameManager_T : MonoBehaviour
 {
     private static GameManager_T gmInstance;
