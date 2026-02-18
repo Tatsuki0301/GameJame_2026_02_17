@@ -20,9 +20,9 @@ public class PlayerManager : MonoBehaviour
         player.PlayerStart(this, direction, x, y);
     }
 
-    public void StartAction(Queue<int> _actions)
+    public void StartAction(Queue<int> _actions, Queue<GameObject> objQueue)
     {
-        player.StartAction(_actions);
+        player.StartAction(_actions, objQueue);
     }
 
     public int GetMasValue(int y, int x)

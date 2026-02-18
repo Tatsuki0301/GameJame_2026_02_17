@@ -11,6 +11,7 @@ public class ActionManager : MonoBehaviour
     private GameObject test;
 
     private Queue<int> actionQueue = new Queue<int>();
+    private Queue<GameObject> objQueue = new Queue<GameObject>();
     private GameManager_T gm;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -23,6 +24,7 @@ public class ActionManager : MonoBehaviour
     {
         actionQueue.Enqueue(actionNumber);
         GameObject createObj = Instantiate(test);
+        objQueue.Enqueue(createObj);
         createObj.transform.parent = content.transform;
         createObj.transform.localPosition = new Vector3(createObj.transform.localPosition.x, createObj.transform.localPosition.y, 0);
         createObj.transform.localScale = Vector3.one;
@@ -38,7 +40,7 @@ public class ActionManager : MonoBehaviour
 
     public void PushStartButton()
     {
-        gm.StartAction(actionQueue);
+        gm.StartAction(actionQueue, objQueue);
     }
 
     public void PushActionResetButton()
