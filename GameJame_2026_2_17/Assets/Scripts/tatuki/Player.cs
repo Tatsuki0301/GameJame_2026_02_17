@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
         new Vector2(-1, 0),
     };
 
+    private Queue<GameObject> gameObjects = new Queue<GameObject>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void PlayerStart(PlayerManager _pm,  PlayerDirection dir, int x, int y)
     {
@@ -49,7 +51,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public async void StartAction(Queue<int> _actions)
+    public async void StartAction(Queue<int> _actions, Queue<GameObject> _objQueue)
     {
         for(int i = _actions.Count; i > 0; i--)
         {
@@ -65,6 +67,8 @@ public class Player : MonoBehaviour
                     await RotationAction(-1);
                     break;
             }
+            GameObject obj = _objQueue.Dequeue();
+            Destroy(obj);
         }
     }
 

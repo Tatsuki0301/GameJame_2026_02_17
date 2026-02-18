@@ -15,9 +15,9 @@ public class GameManager_T : MonoBehaviour
         pm = GameObject.Find("PlayerManager").gameObject.GetComponent<PlayerManager>();
     }
 
-    public void StartAction(Queue<int> _actions)
+    public void StartAction(Queue<int> _actions, Queue<GameObject> objQueue)
     {
-        pm.StartAction(_actions);
+        pm.StartAction(_actions, objQueue);
     }
 
     public void PMStart(Player player, int x, int y)
