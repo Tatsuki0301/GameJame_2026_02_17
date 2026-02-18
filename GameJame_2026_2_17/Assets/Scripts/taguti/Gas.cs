@@ -16,8 +16,10 @@ public class Gas : MonoBehaviour
     [SerializeField] Button loginButton;
     [SerializeField] Button registerButton;
     [SerializeField] Text messageText;
+    [SerializeField] GameObject buttonText;
 
     [SerializeField] GameObject loginPanel;
+    [SerializeField] GameObject selectPanel;
 
     [SerializeField] string sceneName;
 
@@ -37,7 +39,11 @@ public class Gas : MonoBehaviour
     //Title画面のボタンをクリックしたらパネルを表示する
     public void ShowLoginPanel()
     {
-        if (loginPanel) loginPanel.SetActive(true);
+        if (loginPanel)
+        {
+            loginPanel.SetActive(true);
+            buttonText.SetActive(false);
+        }
     }
 
     IEnumerator OnClickLogin()
@@ -74,7 +80,10 @@ public class Gas : MonoBehaviour
                 Session.SetLogin(name, pin);
                 Session.SetBestStage(res.bestScore);
 
-                SceneManager.LoadScene(sceneName);
+
+                selectPanel.SetActive(true);
+                loginPanel.SetActive(false);
+                //SceneManager.LoadScene(sceneName);
             }
             else if (res.status == "REGISTERED")
             {
@@ -127,7 +136,9 @@ public class Gas : MonoBehaviour
                 Session.SetLogin(name, pin);
                 Session.SetBestStage(0); // 登録直後は0想定
 
-                SceneManager.LoadScene(sceneName);
+                selectPanel.SetActive(true);
+                loginPanel.SetActive(false);
+                //SceneManager.LoadScene(sceneName);
                 // TODO: パネル非表示、ゲーム開始へ
             }
             else if (res.status == "LOGGED_IN")
