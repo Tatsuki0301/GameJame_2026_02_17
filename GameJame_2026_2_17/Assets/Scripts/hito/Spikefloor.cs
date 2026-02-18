@@ -8,12 +8,8 @@ public class Spikefloor : MonoBehaviour
     {
         if (player == null) return;
 
-        var col = player.GetComponent<Collider2D>();
-        var target = col != null && col.attachedRigidbody != null
-            ? col.attachedRigidbody.gameObject
-            : player;
-
-        Destroy(target);
+        var rb = player.GetComponent<Rigidbody2D>();
+        Destroy(rb != null ? rb.gameObject : player);
     }
     
     private void OnTriggerEnter2D(Collider2D collision)

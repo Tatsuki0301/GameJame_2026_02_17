@@ -40,12 +40,9 @@ public class EnemyManager : MonoBehaviour
     {
         if (player == null) return;
 
-        var playerCollider = player.GetComponent<Collider2D>();
-        var target = playerCollider != null && playerCollider.attachedRigidbody != null
-            ? playerCollider.attachedRigidbody.gameObject
-            : player.gameObject;
-
-        Destroy(target);
+        // Collider2D を前提にしない（セル判定運用でも動くようにする）
+        var rb = player.GetComponent<Rigidbody2D>();
+        Destroy(rb != null ? rb.gameObject : player.gameObject);
     }
     
     protected virtual void Update()
