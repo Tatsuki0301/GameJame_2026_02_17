@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 178651541}
   - component: {fileID: 178651540}
   m_Layer: 5
-  m_Name: InputField (Legacy) (1)
+  m_Name: InputFieldPas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,8 +282,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 233.04, y: -22}
-  m_SizeDelta: {x: 466.07, y: 122.01}
+  m_AnchoredPosition: {x: 275, y: -22}
+  m_SizeDelta: {x: 650, y: 122.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &178651540
 MonoBehaviour:
@@ -328,13 +328,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 178651541}
   m_TextComponent: {fileID: 1291913229}
   m_Placeholder: {fileID: 249740089}
-  m_ContentType: 2
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
-  m_KeyboardType: 2
+  m_KeyboardType: 0
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 1
+  m_CharacterValidation: 0
   m_CharacterLimit: 0
   m_OnSubmit:
     m_PersistentCalls:
@@ -679,13 +679,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 50
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: 
 --- !u!222 &249740090
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -706,7 +706,7 @@ GameObject:
   - component: {fileID: 373640130}
   - component: {fileID: 373640129}
   m_Layer: 5
-  m_Name: Text (Legacy) (1)
+  m_Name: TextPas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -752,7 +752,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: aed849048cf017c41bbf8eef47e03efe, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
@@ -974,7 +974,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1431686726}
         m_TargetAssemblyTypeName: Gas, Assembly-CSharp
         m_MethodName: ShowLoginPanel
         m_Mode: 1
@@ -1275,13 +1275,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 50
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: 
 --- !u!222 &1214347875
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1348,13 +1348,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 60
+    m_Font: {fileID: 12800000, guid: aed849048cf017c41bbf8eef47e03efe, type: 3}
+    m_FontSize: 75
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 6
-    m_MaxSize: 60
-    m_Alignment: 0
+    m_MaxSize: 75
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 1
@@ -1554,7 +1554,7 @@ GameObject:
   - component: {fileID: 1322646832}
   - component: {fileID: 1322646831}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: TextName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1600,7 +1600,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: aed849048cf017c41bbf8eef47e03efe, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
@@ -1754,13 +1754,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 60
+    m_Font: {fileID: 12800000, guid: aed849048cf017c41bbf8eef47e03efe, type: 3}
+    m_FontSize: 75
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 6
-    m_MaxSize: 60
-    m_Alignment: 0
+    m_MaxSize: 75
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 1
@@ -1895,7 +1895,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: aed849048cf017c41bbf8eef47e03efe, type: 3}
     m_FontSize: 100
     m_FontStyle: 3
     m_BestFit: 0
@@ -1907,7 +1907,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Tap To Start
+  m_Text: Tap To Login
 --- !u!222 &1417516555
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1916,6 +1916,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1417516552}
   m_CullTransparentMesh: 1
+--- !u!1 &1431686725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1431686727}
+  - component: {fileID: 1431686726}
+  m_Layer: 0
+  m_Name: SeanContlloer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1431686726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431686725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd794792282afc479e7894542e5733d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoginPanel
+  gasUrl: https://script.google.com/macros/s/AKfycbyt40X-RRuOFc18NolMUf8mSxKIN7wSp1j_mz6JzuO5waoqdfv_0OljYeZ5l_8HXKU/exec
+  nameInput: {fileID: 1920030833}
+  pinInput: {fileID: 178651540}
+  loginButton: {fileID: 1452887263}
+  registerButton: {fileID: 1718925976}
+  messageText: {fileID: 2030634917}
+  buttonText: {fileID: 1417516552}
+  loginPanel: {fileID: 386682099}
+  selectPanel: {fileID: 2010039550}
+  sceneName: StageSelect
+--- !u!4 &1431686727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431686725}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1452887261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1929,7 +1983,7 @@ GameObject:
   - component: {fileID: 1452887264}
   - component: {fileID: 1452887263}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: ButtonLogin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2050,7 +2104,7 @@ GameObject:
   - component: {fileID: 1718925977}
   - component: {fileID: 1718925976}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: ButtonNew
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2216,7 +2270,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: aed849048cf017c41bbf8eef47e03efe, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
@@ -2478,7 +2532,7 @@ GameObject:
   - component: {fileID: 1920030834}
   - component: {fileID: 1920030833}
   m_Layer: 5
-  m_Name: InputField (Legacy)
+  m_Name: InputFieldName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2502,8 +2556,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 233.04, y: 167}
-  m_SizeDelta: {x: 466.07, y: 122.01}
+  m_AnchoredPosition: {x: 275, y: 167}
+  m_SizeDelta: {x: 650, y: 122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1920030833
 MonoBehaviour:
@@ -2555,7 +2609,7 @@ MonoBehaviour:
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 0
-  m_CharacterLimit: 0
+  m_CharacterLimit: 7
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -2669,7 +2723,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: aed849048cf017c41bbf8eef47e03efe, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
@@ -2816,7 +2870,7 @@ GameObject:
   - component: {fileID: 2030634918}
   - component: {fileID: 2030634917}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: TextError
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2862,7 +2916,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: aed849048cf017c41bbf8eef47e03efe, type: 3}
     m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0
@@ -2893,3 +2947,4 @@ SceneRoots:
   - {fileID: 207946799}
   - {fileID: 229456220}
   - {fileID: 1757581008}
+  - {fileID: 1431686727}
