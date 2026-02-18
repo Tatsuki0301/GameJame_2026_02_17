@@ -4,9 +4,6 @@ public class Spikefloor : MonoBehaviour
 {
     [SerializeField] private string playerTag = "Player";
 
-    /// <summary>
-    /// Collider2D を使わない「セル侵入」方式で呼び出す。
-    /// </summary>
     public void Activate(GameObject player)
     {
         if (player == null) return;

@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Collider2D/Trigger を使わず、プレイヤーのセル移動を監視して
-/// そのセルに配置されたギミック（NoiseFloor / Spikefloor）を発火させる。
-/// </summary>
 [DefaultExecutionOrder(2000)]
 public sealed class PlayerCellGimmickActivator : MonoBehaviour
 {

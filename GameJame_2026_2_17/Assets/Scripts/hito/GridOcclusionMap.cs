@@ -43,8 +43,6 @@ public sealed class GridOcclusionMap : MonoBehaviour
     {
         if (cellSize <= 0f) return Vector2Int.zero;
         Vector2 local = worldPosition - origin;
-        // DOTweenなどで 0.999999 / 1.000001 のような誤差が出ても
-        // 意図したセルに安定して入るように Round を採用する
         int x = Mathf.RoundToInt(local.x / cellSize);
         int yFromBottom = Mathf.RoundToInt(local.y / cellSize);
         int y = invertY && height > 0

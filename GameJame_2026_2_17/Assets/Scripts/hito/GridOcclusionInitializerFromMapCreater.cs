@@ -1,19 +1,17 @@
 using UnityEngine;
 
-// MapCreater を改造せずに、生成済みの map 情報から GridOcclusionMap を初期化する
 [DefaultExecutionOrder(1000)]
 public sealed class GridOcclusionInitializerFromMapCreater : MonoBehaviour
 {
     [SerializeField] private MapCreater mapCreater;
     [SerializeField] private GridOcclusionMap gridOcclusion;
 
-    // MapCreater の startCreatePos と同じ値を入れる（Inspectorで設定）
+
     [SerializeField] private Vector2 startCreatePos = new Vector2(-8.39f, -4.50f);
 
-    // MapCreater の生成が 1*x, 1*y なので基本1
+
     [SerializeField] private float cellSize = 1f;
 
-    // Player.cs の壁判定に合わせる（GetMasValue(...) == 3）
     [SerializeField] private int wallValue = 3;
 
     private void Start()

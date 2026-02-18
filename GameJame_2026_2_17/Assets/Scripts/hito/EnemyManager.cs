@@ -40,9 +40,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (player == null) return;
 
-        // プレイヤーを破壊する
         var playerCollider = player.GetComponent<Collider2D>();
-        // プレイヤーのCollider2Dが存在し、Rigidbody2Dもアタッチされている場合は、そのゲームオブジェクトを破壊
         var target = playerCollider != null && playerCollider.attachedRigidbody != null
             ? playerCollider.attachedRigidbody.gameObject
             : player.gameObject;
