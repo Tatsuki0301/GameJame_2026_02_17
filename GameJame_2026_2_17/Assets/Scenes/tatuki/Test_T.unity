@@ -1182,7 +1182,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2396226a6149444acb0c3c415dbb0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapCreater
-  mapFileName: Test5
+  mapFileName:
+  - Test
+  - Test2
+  - Test3
+  - Test5
   createObjects:
   - {fileID: 6128680753601001266, guid: 582f40099f7fa70448b380b2cea13976, type: 3}
   - {fileID: 3864023793204001214, guid: b943aeb9df327ce489629b98a443e4a5, type: 3}
@@ -1553,7 +1557,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

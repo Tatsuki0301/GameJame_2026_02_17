@@ -12,7 +12,7 @@ public class MapCreater : MonoBehaviour
 {
     [Header("生成するマップのファイル名")]
     [SerializeField]
-    private string mapFileName;
+    private string[] mapFileName;
 
     [Header("生成するオブジェクト※順番関係あるため注意")]
     [SerializeField]
@@ -38,7 +38,7 @@ public class MapCreater : MonoBehaviour
     void Start()
     {
         gm = GameObject.Find("GameManager").gameObject.GetComponent<GameManager_T>();
-        SetMapData(mapFileName);
+        SetMapData(1);
         MapCreate();
     }
 
@@ -48,9 +48,9 @@ public class MapCreater : MonoBehaviour
         
     }
 
-    public void SetMapData(string _mapFileName)
+    public void SetMapData(int mapNumber)
     {
-        string paht = mapDataPath + _mapFileName + ".csv";
+        string paht = mapDataPath + mapFileName[mapNumber] + ".csv";
         if(File.Exists(paht))
         {
             string[] lines = File.ReadLines(paht).ToArray(); //ファイル内データを行に分割
@@ -75,7 +75,7 @@ public class MapCreater : MonoBehaviour
         }
         else
         {
-            Debug.Log($"{_mapFileName}ファイルが見つかりませんでした。");
+            Debug.Log($"{mapFileName[mapNumber]}ファイルが見つかりませんでした。");
             Debug.Log($"{paht}ここには存在しません。");
             return;
         }
