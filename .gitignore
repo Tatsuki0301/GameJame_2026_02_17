@@ -100,3 +100,5 @@ InitTestScene*.unity*
 GameJame_2026_2_17/Library/
 [Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 GameJame_2026_2_17/Temp/
+# Unity user-specific settings (do not version)
+UserSettings/
