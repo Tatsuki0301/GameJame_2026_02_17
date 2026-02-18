@@ -2,54 +2,39 @@ using UnityEngine;
 
 public class NoiseFloor : MonoBehaviour
 {
-    [SerializeField] private float detectionRadius = 5f; // 敵の検索範囲
-    [SerializeField] private LayerMask enemyLayer; // 敵のレイヤー
+    [SerializeField] private int detectionRadiusCells = 5;
     [SerializeField] private string playerTag = "Player";
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(playerTag))
+        if (!collision.CompareTag(playerTag)) return;
+        if (EnemyCellTracker.I == null) return;
+
+        // ★踏んだ床中心
+        var center = EnemyCellTracker.I.WorldToCell(transform.position);
+
+        if (HasEnemyWithin(center, detectionRadiusCells))
         {
-            CheckForNearbyEnemies(collision.gameObject);
-        }
-    }
-    
-    private void CheckForNearbyEnemies(GameObject player)
-    {
-        // 範囲内の敵を検索
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(
-            transform.position, 
-            detectionRadius, 
-            enemyLayer
-        );
-        
-        if (enemies.Length > 0)
-        {
-            Debug.Log($"音が鳴った！{enemies.Length}体の敵が気づいた");
-            
-            // プレイヤーを死亡させる（HP概念なし）
-            var playerCollider = player.GetComponent<Collider2D>();
-            var target = playerCollider != null && playerCollider.attachedRigidbody != null
-                ? playerCollider.attachedRigidbody.gameObject
+            var player = collision.gameObject;
+            var col = player.GetComponent<Collider2D>();
+            var target = col != null && col.attachedRigidbody != null
+                ? col.attachedRigidbody.gameObject
                 : player;
+
             Destroy(target);
-            
-            // 敵に通知（オプション）
-            foreach (var enemy in enemies)
-            {
-                enemy.gameObject.SendMessage(
-                    "OnNoiseHeard",
-                    transform.position,
-                    SendMessageOptions.DontRequireReceiver
-                );
-            }
         }
     }
-    
-    // デバッグ用：範囲を可視化
-    private void OnDrawGizmosSelected()
+
+    private bool HasEnemyWithin(Vector2Int center, int r)
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        int rr = r * r;
+        for (int y = -r; y <= r; y++)
+        for (int x = -r; x <= r; x++)
+        {
+            if (x * x + y * y > rr) continue;
+            if (EnemyCellTracker.I.HasEnemy(new Vector2Int(center.x + x, center.y + y)))
+                return true;
+        }
+        return false;
     }
 }
