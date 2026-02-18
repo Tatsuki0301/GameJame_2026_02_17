@@ -39,6 +39,11 @@ public class ActionManager : MonoBehaviour
 
     public void PushActionResetButton()
     {
-        actionQueue = new Queue<int>();
+        actionQueue.Clear();
+        foreach (GameObject obj in objQueue)
+        {
+            Destroy(obj);
+        }
+        objQueue.Clear();
     }
 }
