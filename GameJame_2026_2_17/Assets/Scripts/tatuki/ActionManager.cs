@@ -8,7 +8,9 @@ public class ActionManager : MonoBehaviour
     private GameObject content;
 
     [SerializeField]
-    private GameObject test;
+    private GameObject[] actionIcon;
+
+
 
     private Queue<int> actionQueue = new Queue<int>();
     private Queue<GameObject> objQueue = new Queue<GameObject>();
@@ -23,19 +25,11 @@ public class ActionManager : MonoBehaviour
     public void PushActionButton(int actionNumber)
     {
         actionQueue.Enqueue(actionNumber);
-        GameObject createObj = Instantiate(test);
+        GameObject createObj = Instantiate(actionIcon[actionNumber]);
         objQueue.Enqueue(createObj);
         createObj.transform.parent = content.transform;
         createObj.transform.localPosition = new Vector3(createObj.transform.localPosition.x, createObj.transform.localPosition.y, 0);
         createObj.transform.localScale = Vector3.one;
-        if(actionNumber == 0)
-        {
-            createObj.GetComponent<Image>().color = Color.red;
-        }
-        else if(actionNumber == 1)
-        {
-            createObj.GetComponent<Image>().color = Color.blue;
-        }
     }
 
     public void PushStartButton()
