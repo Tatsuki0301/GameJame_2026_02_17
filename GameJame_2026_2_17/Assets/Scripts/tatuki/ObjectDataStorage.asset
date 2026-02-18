@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30b597b48df06842b31ff74028bc9f8, type: 3}
+  m_Name: ObjectDataStorage
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectDataStorage
+  objDatas:
+  - obj: {fileID: 6128680753601001266, guid: 582f40099f7fa70448b380b2cea13976, type: 3}
+    qua: {x: 0, y: 0, z: 0, w: 0}
+    value: 2
+  - obj: {fileID: 3864023793204001214, guid: b943aeb9df327ce489629b98a443e4a5, type: 3}
+    qua: {x: 0, y: 0, z: 0, w: 0}
+    value: 3
+  - obj: {fileID: 8610830910004310855, guid: 6043c670e138e7a419fd21745d9a56a6, type: 3}
+    qua: {x: 0, y: 0, z: 0, w: 1}
+    value: 4
+  - obj: {fileID: 8610830910004310855, guid: 6043c670e138e7a419fd21745d9a56a6, type: 3}
+    qua: {x: 0, y: 0, z: -0.70710677, w: 0.70710677}
+    value: 4
+  - obj: {fileID: 8610830910004310855, guid: 6043c670e138e7a419fd21745d9a56a6, type: 3}
+    qua: {x: 0, y: 0, z: 1, w: -0.00000004371139}
+    value: 4
+  - obj: {fileID: 8610830910004310855, guid: 6043c670e138e7a419fd21745d9a56a6, type: 3}
+    qua: {x: 0, y: 0, z: 0.70710677, w: 0.70710677}
+    value: 4
