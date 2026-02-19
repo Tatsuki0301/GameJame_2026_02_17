@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private Sprite[] ps;
+
+    public bool end = false;
+
     public enum PlayerDirection
     {
         Up,
@@ -109,6 +112,7 @@ public class Player : MonoBehaviour
     {
         for(int i = _actions.Count; i > 0; i--)
         {
+            if (end) break;
             switch (_actions.Dequeue())
             {
                 case 0:

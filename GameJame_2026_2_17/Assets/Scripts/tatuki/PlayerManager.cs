@@ -70,4 +70,9 @@ public class PlayerManager : MonoBehaviour
     {
         gm.ResetMap();
     }
+
+    public void EndPlayer()
+    {
+        player.end = true;
+    }
 }

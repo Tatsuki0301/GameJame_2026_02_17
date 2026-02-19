@@ -74,6 +74,7 @@ public class GameManager_T : MonoBehaviour
     public void EndMainGame()
     {
         print("‚¨‚í‚¨‚í‚è");
+        pm.EndPlayer();
         GameState.Instance.SetState(false);
         SceneManager.LoadScene("ResultScene");
     }
