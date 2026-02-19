@@ -167,4 +167,9 @@ public class EnemyManager : MonoBehaviour
         Destroy(rb != null ? rb.gameObject : player.gameObject);
         player = null;
     }
+
+    public int GetMasValue(int y, int x)
+    {
+        return gm.GetMasValue(y, x);
+    }
 }

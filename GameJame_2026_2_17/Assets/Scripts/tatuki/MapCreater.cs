@@ -35,17 +35,11 @@ public class MapCreater : MonoBehaviour
     private Vector2 startCreatePos = new Vector2(-8.39f, -4.50f);
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void MapStart(GameManager_T _gm)
     {
-        gm = GameObject.Find("GameManager").gameObject.GetComponent<GameManager_T>();
-        SetMapData(StageIndex.Instance.GetIndex());
+        gm = _gm;
+        SetMapData(3);
         MapCreate();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SetMapData(int mapNumber)
@@ -114,8 +108,13 @@ public class MapCreater : MonoBehaviour
                     switch (objData.value)
                     {
                         case 4:
+                            gm.SetEnemyData(y, x, objData.qua.eulerAngles.z, createObj.GetComponent<EnemyBase>());
                             createObj = Instantiate(objDic[2].obj, createPos, Quaternion.identity);
                             createObj.transform.parent = parent.transform;
+                            break;
+                        case 5:
+                            int key = gm.GetKeyValue(y, x);
+                            gm.SetGimickData(key, createObj.GetComponent<AlertFloor>());
                             break;
                         default:
                             break;
