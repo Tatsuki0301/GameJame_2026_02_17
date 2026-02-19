@@ -4,19 +4,12 @@ public class Spikefloor : MonoBehaviour
 {
     [SerializeField] private string playerTag = "Player";
 
-    /// <summary>
-    /// Collider2D を使わない「セル侵入」方式で呼び出す。
-    /// </summary>
     public void Activate(GameObject player)
     {
         if (player == null) return;
 
-        var col = player.GetComponent<Collider2D>();
-        var target = col != null && col.attachedRigidbody != null
-            ? col.attachedRigidbody.gameObject
-            : player;
-
-        Destroy(target);
+        var rb = player.GetComponent<Rigidbody2D>();
+        Destroy(rb != null ? rb.gameObject : player);
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
