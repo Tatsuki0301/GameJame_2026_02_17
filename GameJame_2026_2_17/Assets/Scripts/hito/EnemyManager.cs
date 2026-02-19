@@ -1,157 +1,170 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 public class EnemyManager : MonoBehaviour
 {
-    [Header("視界設定")]
-    [SerializeField] protected float visionRange = 5f;     // 視界の距離
-    [SerializeField] protected float visionAngle = 90f;    // 視界の角度
+    private GameManager_T gm;
+    private Transform player;
 
-    [Header("遮蔽（グリッド判定）")]
-    [SerializeField] private GridOcclusionMap gridOcclusion;
+    private readonly List<Transform> swordsmen = new();
+    private readonly List<Transform> archers = new();
 
-    [Header("デバッグ表示")]
-    [SerializeField] private bool drawFovSector = true;
-    [SerializeField] private bool drawFovOutline = false;
+    [Header("Map値")]
+    [SerializeField] private int wallValue = 3;
+    [SerializeField] private int swordsmanValue = 2;
+    [SerializeField] private int archerValue = 4;
 
-    private void Reset()
+    [Header("探索")]
+    [Min(0)]
+    [SerializeField] private int swordsmanRangeCells = 3;
+    [Min(0)]
+    [SerializeField] private int archerRangeCells = 4;
+
+    [Header("座標変換（MapCreaterと合わせる）")]
+    [SerializeField] private Vector2 startCreatePos = new Vector2(-8.39f, -4.50f);
+
+    private int mapHeight;
+
+    private IEnumerator Start()
     {
-        drawFovSector = true;
-        drawFovOutline = false;
-    }
+        var gmObj = GameObject.Find("GameManager");
+        if (gmObj == null) yield break;
+        gm = gmObj.GetComponent<GameManager_T>();
+        if (gm == null) yield break;
 
-    private void Awake()
-    {
-        if (gridOcclusion == null)
+        // MapCreaterが生成し終わってから、Mapルート配下の敵を拾う
+        const int maxFrames = 120;
+        for (int i = 0; i < maxFrames; i++)
         {
-            gridOcclusion = FindAnyObjectByType<GridOcclusionMap>();
+            if (TryCacheEnemies()) yield break;
+            yield return null;
         }
     }
 
-    private bool registeredToCellTracker;
-    private Vector2Int registeredCell;
-    
-    protected Transform player;
-    protected bool canSeePlayer = false;
-
-    protected void KillPlayer()
+    private bool TryCacheEnemies()
     {
-        if (player == null) return;
+        var mcObj = GameObject.Find("MapCreater");
+        if (mcObj == null) return false;
+        var mc = mcObj.GetComponent<MapCreater>();
+        if (mc == null || mc.Map == null) return false;
 
-        // Collider2D を前提にしない（セル判定運用でも動くようにする）
-        var rb = player.GetComponent<Rigidbody2D>();
-        Destroy(rb != null ? rb.gameObject : player.gameObject);
+        mapHeight = mc.Map.GetLength(0);
+        if (mapHeight <= 0) return false;
+
+        var mapRoot = GameObject.Find("Map");
+        if (mapRoot == null) return false;
+
+        swordsmen.Clear();
+        archers.Clear();
+
+        foreach (Transform child in mapRoot.transform)
+        {
+            Vector2Int cell = WorldToCell(child.position);
+            int v = gm.GetMasValue(cell.y, cell.x);
+            if (v == swordsmanValue) swordsmen.Add(child);
+            if (v == archerValue) archers.Add(child);
+        }
+
+        return true;
     }
-    
-    protected virtual void Update()
+
+    private void Update()
     {
-        TryRegisterToCellTracker();
-        DetectPlayer();
-        
-        if (canSeePlayer)
+        if (gm == null) return;
+        if (mapHeight <= 0) return;
+
+        if (player == null)
+        {
+            var p = FindAnyObjectByType<Player>();
+            if (p == null) return;
+            player = p.transform;
+        }
+
+        int[] pos = gm.GetPlayerPos();
+        if (pos == null || pos.Length < 2) return;
+        var playerCell = new Vector2Int(pos[1], pos[0]);
+
+        if (IsDetectedBySwordsman(playerCell) || IsDetectedByArcher(playerCell))
         {
             KillPlayer();
         }
     }
 
-    private void OnDestroy()
+    private bool IsDetectedBySwordsman(Vector2Int playerCell)
     {
-        if (!registeredToCellTracker) return;
-        if (EnemyCellTracker.I == null) return;
-        EnemyCellTracker.I.Unregister(registeredCell);
-        registeredToCellTracker = false;
+        int rr = swordsmanRangeCells * swordsmanRangeCells;
+        for (int i = 0; i < swordsmen.Count; i++)
+        {
+            Transform enemy = swordsmen[i];
+            if (enemy == null) continue;
+
+            Vector2Int e = WorldToCell(enemy.position);
+            int dx = playerCell.x - e.x;
+            int dy = playerCell.y - e.y;
+            if (dx * dx + dy * dy <= rr) return true;
+        }
+        return false;
     }
 
-    private void TryRegisterToCellTracker()
+    private bool IsDetectedByArcher(Vector2Int playerCell)
     {
-        if (registeredToCellTracker) return;
+        for (int i = 0; i < archers.Count; i++)
+        {
+            Transform enemy = archers[i];
+            if (enemy == null) continue;
 
-        var tracker = EnemyCellTracker.I;
-        if (tracker == null) return;
-        if (!tracker.TryWorldToCell(transform.position, out registeredCell)) return;
+            Vector2Int e = WorldToCell(enemy.position);
+            Vector2Int step = RotationToStep(enemy.eulerAngles.z);
+            if (step == Vector2Int.zero) continue;
 
-        tracker.Register(registeredCell);
-        registeredToCellTracker = true;
+            if (RayToPlayer(e, step, archerRangeCells, playerCell)) return true;
+        }
+        return false;
     }
-    
-    // プレイヤーを検知
-    protected virtual void DetectPlayer()
-    {
-        if (player == null)
-        {
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-            if (playerObj != null)
-            {
-                player = playerObj.transform;
-            }
-            else
-            {
-                canSeePlayer = false;
-            }
-            return;
-        }
-        
-        Vector2 directionToPlayer = (player.position - transform.position).normalized;
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        
-        // 距離チェック
-        if (distanceToPlayer > visionRange)
-        {
-            canSeePlayer = false;
-            return;
-        }
-        
-        // 角度チェック
-        float angleToPlayer = Vector2.Angle(transform.right, directionToPlayer);
-        if (angleToPlayer > visionAngle / 2f)
-        {
-            canSeePlayer = false;
-            return;
-        }
 
-        // 遮蔽チェック
-        canSeePlayer = gridOcclusion != null
-            && gridOcclusion.IsInitialized
-            && gridOcclusion.HasLineOfSight(transform.position, player.position);
+    private bool RayToPlayer(Vector2Int enemy, Vector2Int step, int range, Vector2Int playerCell)
+    {
+        for (int i = 1; i <= range; i++)
+        {
+            var c = new Vector2Int(enemy.x + step.x * i, enemy.y + step.y * i);
+            int v = gm.GetMasValue(c.y, c.x);
+            if (v == wallValue) return false;
+            if (c == playerCell) return true;
+        }
+        return false;
     }
-    
-    // 音のなる床から呼ばれる
-    public virtual void OnNoiseHeard(Vector2 noisePosition)
+
+    private Vector2Int WorldToCell(Vector3 world)
     {
-        Debug.Log($"{gameObject.name}が音を聞いた！");
+        int x = Mathf.RoundToInt(world.x - startCreatePos.x);
+        int yFromBottom = Mathf.RoundToInt(world.y - startCreatePos.y);
+        int y = (mapHeight - 1) - yFromBottom;
+        return new Vector2Int(x, y);
     }
-    
-    // デバッグ用：視界を可視化
-    protected virtual void OnDrawGizmosSelected()
+
+    private static Vector2Int RotationToStep(float z)
     {
-        var baseColor = canSeePlayer ? Color.red : Color.green;
+        // Player.csの回転に合わせる: Up=0, Left=90, Down=180, Right=270(=-90)
+        float angle = Mathf.Repeat(z, 360f);
+        int snapped = Mathf.RoundToInt(angle / 90f) * 90;
+        snapped = (snapped % 360 + 360) % 360;
 
-        // 視界の範囲を描画（扇状のみ）
-        Vector3 forward = transform.right;
-        Vector3 rightBoundary = Quaternion.Euler(0, 0, -visionAngle / 2f) * forward * visionRange;
-        Vector3 leftBoundary = Quaternion.Euler(0, 0, visionAngle / 2f) * forward * visionRange;
-
-#if UNITY_EDITOR
-        if (drawFovSector)
+        return snapped switch
         {
-            Handles.color = new Color(baseColor.r, baseColor.g, baseColor.b, 0.15f);
-            Handles.DrawSolidArc(
-                transform.position,
-                Vector3.forward,
-                rightBoundary.normalized,
-                visionAngle,
-                visionRange
-            );
-        }
-#endif
+            0 => Vector2Int.up,
+            90 => Vector2Int.left,
+            180 => Vector2Int.down,
+            270 => Vector2Int.right,
+            _ => Vector2Int.zero,
+        };
+    }
 
-        if (drawFovOutline)
-        {
-            Gizmos.color = baseColor;
-            Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
-            Gizmos.DrawLine(transform.position, transform.position + leftBoundary);
-        }
+    private void KillPlayer()
+    {
+        if (player == null) return;
+        var rb = player.GetComponent<Rigidbody2D>();
+        Destroy(rb != null ? rb.gameObject : player.gameObject);
+        player = null;
     }
 }
