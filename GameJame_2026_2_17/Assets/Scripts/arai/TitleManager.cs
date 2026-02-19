@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using static UnityEngine.Mesh;
+using UnityEngine.UI;
 
 public class TitleManager : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class TitleManager : MonoBehaviour
     #endregion
 
     #region private変数
-
+    [SerializeField] private Text tapToText;
     #endregion
 
 
@@ -30,13 +30,13 @@ public class TitleManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        TextChange();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     #endregion
 
@@ -52,7 +52,11 @@ public class TitleManager : MonoBehaviour
     #endregion
 
     #region Update呼び出し関数
-
+    void TextChange()
+    {
+        //テキストを点滅させる（ループアニメーション）
+        tapToText.DOFade(0f, 1f).SetLoops(-1, LoopType.Yoyo);
+    }
     #endregion
 
 }

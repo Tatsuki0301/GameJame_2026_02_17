@@ -38,7 +38,7 @@ public class MapCreater : MonoBehaviour
     void Start()
     {
         gm = GameObject.Find("GameManager").gameObject.GetComponent<GameManager_T>();
-        SetMapData(1);
+        SetMapData(StageIndex.Instance.GetIndex());
         MapCreate();
     }
 
