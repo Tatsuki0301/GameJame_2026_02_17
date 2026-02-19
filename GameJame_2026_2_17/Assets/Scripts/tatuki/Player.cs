@@ -6,6 +6,8 @@ using System.ComponentModel;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField]
+    private Sprite[] ps;
     public enum PlayerDirection
     {
         Up,
@@ -15,6 +17,7 @@ public class Player : MonoBehaviour
     }
 
     private int px, py;
+    private int startX, startY;
     public int PX
     {
         get { return px; }
@@ -26,8 +29,12 @@ public class Player : MonoBehaviour
         get { return py; }
         set { py = value; }
     }
+
+    private Vector2 startPos;
+
     private PlayerManager pm;
     private PlayerDirection myDir;
+    private PlayerDirection startDir;
     private Vector3[] addPos =
     {
         new Vector2(0, 1),
@@ -36,6 +43,8 @@ public class Player : MonoBehaviour
         new Vector2(-1, 0),
     };
 
+    private SpriteRenderer sr;
+
     private Queue<GameObject> gameObjects = new Queue<GameObject>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -43,10 +52,17 @@ public class Player : MonoBehaviour
     {
         pm = _pm;
         myDir = dir;
+        startDir = dir;
         px = x;
         py = y;
+        startPos = transform.position;
+        startX = x;
+        startY = y;
 
         Debug.Log($"{px}, {py}");
+
+        sr = GetComponent<SpriteRenderer>();
+        sr.sprite = ps[(int)myDir];
 
         //èâä˙äpìxê›íË
         switch (myDir)
@@ -61,6 +77,31 @@ public class Player : MonoBehaviour
                 transform.eulerAngles = new Vector3(0, 0, 90);
                 break;
         }
+
+    }
+
+    public void ResetPlayer()
+    {
+        transform.position = startPos;
+        px = startX;
+        py = startY;
+        myDir = startDir;
+
+        //èâä˙äpìxê›íË
+        switch (myDir)
+        {
+            case PlayerDirection.Right:
+                transform.eulerAngles = new Vector3(0, 0, -90);
+                break;
+            case PlayerDirection.Down:
+                transform.eulerAngles = new Vector3(0, 0, 180);
+                break;
+            case PlayerDirection.Left:
+                transform.eulerAngles = new Vector3(0, 0, 90);
+                break;
+        }
+
+        sr.sprite = ps[(int)myDir];
     }
 
     public async void StartAction(Queue<int> _actions, Queue<GameObject> _objQueue)
@@ -74,10 +115,10 @@ public class Player : MonoBehaviour
                     pm.SearchPlayer();
                     break;
                 case 1:
-                    await RotationAction(1);
+                    RotationAction(1);
                     break;
                 case 2:
-                    await RotationAction(-1);
+                    RotationAction(-1);
                     break;
                 case 3:
                     AtackAction();
@@ -86,6 +127,7 @@ public class Player : MonoBehaviour
             GameObject obj = _objQueue.Dequeue();
             Destroy(obj);
         }
+        pm.ResetMap();
     }
 
     private async UniTask WalkAction()
@@ -119,12 +161,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    private async UniTask RotationAction(int rotateDir)
+    private void RotationAction(int rotateDir)
     {
         ChengeDirection(rotateDir);
-        await transform.DORotate(new Vector3(0f, 0f, 90f * -rotateDir), 0.5f, RotateMode.LocalAxisAdd)
-            .SetEase(Ease.Linear)
-            .ToUniTask();
+        sr.sprite = ps[(int)myDir];
     }
 
     /// <summary>

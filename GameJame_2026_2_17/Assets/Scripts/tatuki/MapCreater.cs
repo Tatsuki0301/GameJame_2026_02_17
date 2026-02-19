@@ -108,7 +108,7 @@ public class MapCreater : MonoBehaviour
                     switch (objData.value)
                     {
                         case 4:
-                            gm.SetEnemyData(y, x, objData.qua.eulerAngles.z, createObj.GetComponent<EnemyBase>());
+                            gm.SetEnemyData(y, x, objData.qua.eulerAngles.z, createObj, objData.obj);
                             createObj = Instantiate(objDic[2].obj, createPos, Quaternion.identity);
                             createObj.transform.parent = parent.transform;
                             break;
