@@ -30,6 +30,11 @@ public class PlayerManager : MonoBehaviour
         return gm.GetMasValue(y, x);
     }
 
+    public void SearchPlayer()
+    {
+        gm.SearchPlayer();
+    }
+
     public int[] GetPlayerPos()
     {
         int[] playerPos =
@@ -39,5 +44,20 @@ public class PlayerManager : MonoBehaviour
         };
 
         return playerPos;
+    }
+
+    public void AlertSound(int _y, int _x)
+    {
+        gm.AlertSound(_y, _x);
+    }
+
+    public void EndMainGame()
+    {
+        gm.EndMainGame();
+    }
+
+    public void EnemyDestroy(int y, int x)
+    {
+        gm.EnemyDestroy(y, x);
     }
 }

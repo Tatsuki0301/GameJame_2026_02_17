@@ -71,12 +71,16 @@ public class Player : MonoBehaviour
             {
                 case 0:
                     await WalkAction();
+                    pm.SearchPlayer();
                     break;
                 case 1:
                     await RotationAction(1);
                     break;
                 case 2:
                     await RotationAction(-1);
+                    break;
+                case 3:
+                    AtackAction();
                     break;
             }
             GameObject obj = _objQueue.Dequeue();
@@ -89,10 +93,10 @@ public class Player : MonoBehaviour
         int ax = System.Convert.ToInt32(addPos[(int)myDir].x);
         int ay = System.Convert.ToInt32(addPos[(int)myDir].y);
 
-        Debug.Log($"{myDir}, {py - ay}, {px + ax}");
+        int moveMasValue = pm.GetMasValue(py - ay, px + ax);
 
         //前に進めるかの判定&プレイヤーの2次元配列上の位置更新
-        if (pm.GetMasValue(py - ay, px + ax) == 3) return;
+        if (moveMasValue == 3) return;
 
         py -= ay;
         px += ax;
@@ -100,6 +104,19 @@ public class Player : MonoBehaviour
         //移動先の座標
         Vector2 movePos = new Vector2(transform.position.x + addPos[(int)myDir].x, transform.position.y + addPos[(int)myDir].y);
         await transform.DOMove(movePos, 1f).ToUniTask();
+
+        if(moveMasValue == 5)
+        {
+            pm.AlertSound(py, px);
+        }
+        else if(moveMasValue == 6)
+        {
+            pm.EndMainGame();
+        }
+        else if(moveMasValue == 7)
+        {
+            print("クリア");
+        }
     }
 
     private async UniTask RotationAction(int rotateDir)
@@ -131,6 +148,19 @@ public class Player : MonoBehaviour
             case PlayerDirection.Left:
                 myDir = (_rotateDir > 0) ? PlayerDirection.Up : PlayerDirection.Down;
                 break;
+        }
+    }
+
+    private void AtackAction()
+    {
+        Debug.Log(1);
+        int ax = System.Convert.ToInt32(addPos[(int)myDir].x);
+        int ay = System.Convert.ToInt32(addPos[(int)myDir].y);
+
+        if(pm.GetMasValue(py - ay, px + ax) == 4)
+        {
+            Debug.Log(2);
+            pm.EnemyDestroy(py - ay, px + ax);
         }
     }
 }
