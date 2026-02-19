@@ -8,6 +8,8 @@ public class StageIndex : MonoBehaviour
     #endregion
 
     #region private変数
+    [SerializeField] private int maxStage;
+
     private int stageIndex; //ステージ番号
 
     #endregion
@@ -23,13 +25,13 @@ public class StageIndex : MonoBehaviour
     /// ステージ番号を次へ（次のステージへなど）
     /// </summary>
     /// <param name="index">現在のステージ番号</param>
-    public void SetNextIndex(int index) { stageIndex += index; if (stageIndex > 14) stageIndex = 1; }
+    public void SetNextIndex(int index) { stageIndex += index; if (stageIndex > maxStage) stageIndex = 1; }
 
     /// <summary>
     /// ステージ番号を前へ
     /// </summary>
     /// <param name="index">現在のステージ番号</param>
-    public void SetBeforeIndex(int index) { stageIndex -= index; if (stageIndex < 1) stageIndex = 14; }
+    public void SetBeforeIndex(int index) { stageIndex -= index; if (stageIndex < 1) stageIndex = maxStage; }
 
     #endregion
 
