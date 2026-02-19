@@ -88,6 +88,7 @@ public class ButtonGenerate : MonoBehaviour
                 {
                     //シングルトンにステージ番号を保存
                     StageIndex.Instance.SetIndex(currentStageNum);
+                    SoundManager.Instance.SePlay(0);
                     GameStart();
                 });
             }

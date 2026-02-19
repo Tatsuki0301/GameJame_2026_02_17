@@ -89,6 +89,8 @@ public class Gas : MonoBehaviour
     /// </summary>
     public void Logout()
     {
+        SoundManager.Instance.SePlay(1);
+
         //保存データの削除
         PlayerPrefs.SetInt(KEY_LOGGED_IN, 0);
         PlayerPrefs.DeleteKey(KEY_NAME);
@@ -115,6 +117,8 @@ public class Gas : MonoBehaviour
     //Title画面のボタンをクリックしたらパネルを表示する
     public void ShowLoginPanel()
     {
+        SoundManager.Instance.SePlay(0);
+
         titlePanel.SetActive(false);
 
         if (loginPanel)
@@ -128,6 +132,8 @@ public class Gas : MonoBehaviour
     /// </summary>
     public void BackTitle()
     {
+        SoundManager.Instance.SePlay(1);
+
         titlePanel.SetActive(true);
         loginPanel.SetActive(false);
         selectPanel.SetActive(false);

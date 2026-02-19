@@ -30,6 +30,7 @@ public class TitleManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        StartCoroutine(BgmPlays());
         TextChange();
     }
 
@@ -49,9 +50,19 @@ public class TitleManager : MonoBehaviour
     }
     #endregion
 
+    IEnumerator BgmPlays()
+    {
+        SoundManager.Instance.BgmPlay(0);
+
+        yield return new WaitForSeconds(21f);
+
+        SoundManager.Instance.BgmPlay(1);
+    }
+
     #endregion
 
     #region Update呼び出し関数
+
     void TextChange()
     {
         //テキストを点滅させる（ループアニメーション）
