@@ -103,3 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a7b62777e6fc14b8fe0eeb2b690f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  ps:
+  - {fileID: 5880505668745349620, guid: e71dcd97bd03c5940ae4c5975966d95b, type: 3}
+  - {fileID: -1015538141197757790, guid: e71dcd97bd03c5940ae4c5975966d95b, type: 3}
+  - {fileID: -6561849534425112063, guid: e71dcd97bd03c5940ae4c5975966d95b, type: 3}
+  - {fileID: 7534921637086554575, guid: e71dcd97bd03c5940ae4c5975966d95b, type: 3}

@@ -56,9 +56,9 @@ public class GameManager_T : MonoBehaviour
         return key;
     }
 
-    public void SetEnemyData(int ey, int ex, float _dir, EnemyBase _enemy)
+    public void SetEnemyData(int ey, int ex, float _dir, GameObject obj, GameObject createObj)
     {
-        em.SetEnemyData(ey, ex, _dir, _enemy);
+        em.SetEnemyData(ey, ex, _dir, obj, createObj);
     }
 
     public void SetGimickData(int key, AlertFloor alertFloor)
@@ -86,5 +86,11 @@ public class GameManager_T : MonoBehaviour
     public void EnemyDestroy(int y, int x)
     {
         em.EnemyDestroy(y, x);
+    }
+
+    public void ResetMap()
+    {
+        em.ResetEnemy();
+        pm.PlayerReset();
     }
 }

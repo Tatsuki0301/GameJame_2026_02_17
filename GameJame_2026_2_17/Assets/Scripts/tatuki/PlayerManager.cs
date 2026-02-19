@@ -60,4 +60,14 @@ public class PlayerManager : MonoBehaviour
     {
         gm.EnemyDestroy(y, x);
     }
+
+    public void PlayerReset()
+    {
+        player.ResetPlayer();
+    }
+
+    public void ResetMap()
+    {
+        gm.ResetMap();
+    }
 }
