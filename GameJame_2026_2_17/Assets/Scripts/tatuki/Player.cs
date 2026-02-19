@@ -3,6 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
 using System.ComponentModel;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -116,6 +117,8 @@ public class Player : MonoBehaviour
         else if(moveMasValue == 7)
         {
             print("ÉNÉäÉA");
+            GameState.Instance.SetState(true);
+            SceneManager.LoadScene("ResultScene");
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static EnemyBase;
 
 [DefaultExecutionOrder(-5)]
@@ -73,6 +74,8 @@ public class GameManager_T : MonoBehaviour
     public void EndMainGame()
     {
         print("‚¨‚í‚¨‚í‚è");
+        GameState.Instance.SetState(false);
+        SceneManager.LoadScene("ResultScene");
     }
 
     public void AlertSound(int _y, int _x)
